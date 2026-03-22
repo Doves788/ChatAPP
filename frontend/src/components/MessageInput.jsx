@@ -5,57 +5,57 @@ import toast from "react-hot-toast";
 import { ImageIcon, SendIcon, XIcon } from "lucide-react";
 
 function MessageInput() {
-  const { playRandomKeyStrokeSound } = useKeyboardSound();
-  const [text, setText] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+  const { playRandomKeyStrokeSound: prks } = useKeyboardSound();
+  const [txt, stxt] = useState("");
+  const [ip, sip] = useState(null);
 
-  const fileInputRef = useRef(null);
+  const fir = useRef(null);
 
-  const { sendMessage, isSoundEnabled } = useChatStore();
+  const { sendMessage: sm, isSoundEnabled: ise } = useChatStore();
 
-  const handleSendMessage = (e) => {
+  const hsm = (e) => {
     e.preventDefault();
-    if (!text.trim() && !imagePreview) return;
-    if (isSoundEnabled) playRandomKeyStrokeSound();
+    if (!txt.trim() && !ip) return;
+    if (ise) prks();
 
-    sendMessage({
-      text: text.trim(),
-      image: imagePreview,
+    sm({
+      text: txt.trim(),
+      image: ip,
     });
-    setText("");
-    setImagePreview("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    stxt("");
+    sip("");
+    if (fir.current) fir.current.value = "";
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (!file.type.startsWith("image/")) {
+  const hic = (e) => {
+    const f = e.target.files[0];
+    if (!f.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = () => setImagePreview(reader.result);
-    reader.readAsDataURL(file);
+    const rdr = new FileReader();
+    rdr.onloadend = () => sip(rdr.result);
+    rdr.readAsDataURL(f);
   };
 
-  const removeImage = () => {
-    setImagePreview(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+  const ri = () => {
+    sip(null);
+    if (fir.current) fir.current.value = "";
   };
 
   return (
     <div className="p-4 border-t border-slate-700/50">
-      {imagePreview && (
+      {ip && (
         <div className="max-w-3xl mx-auto mb-3 flex items-center">
           <div className="relative">
             <img
-              src={imagePreview}
+              src={ip}
               alt="Preview"
               className="w-20 h-20 object-cover rounded-lg border border-slate-700"
             />
             <button
-              onClick={removeImage}
+              onClick={ri}
               className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-slate-200 hover:bg-slate-700"
               type="button"
             >
@@ -65,13 +65,13 @@ function MessageInput() {
         </div>
       )}
 
-      <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto flex space-x-4">
+      <form onSubmit={hsm} className="max-w-3xl mx-auto flex space-x-4">
         <input
           type="text"
-          value={text}
+          value={txt}
           onChange={(e) => {
-            setText(e.target.value);
-            isSoundEnabled && playRandomKeyStrokeSound();
+            stxt(e.target.value);
+            ise && prks();
           }}
           className="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 px-4"
           placeholder="Type your message..."
@@ -80,24 +80,24 @@ function MessageInput() {
         <input
           type="file"
           accept="image/*"
-          ref={fileInputRef}
-          onChange={handleImageChange}
+          ref={fir}
+          onChange={hic}
           className="hidden"
         />
 
         <button
           type="button"
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() => fir.current?.click()}
           className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-4 transition-colors ${
-            imagePreview ? "text-cyan-500" : ""
+            ip ? "text-red-500" : ""
           }`}
         >
           <ImageIcon className="w-5 h-5" />
         </button>
         <button
           type="submit"
-          disabled={!text.trim() && !imagePreview}
-          className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={!txt.trim() && !ip}
+          className="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg px-4 py-2 font-medium hover:from-red-600 hover:to-red-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <SendIcon className="w-5 h-5" />
         </button>
