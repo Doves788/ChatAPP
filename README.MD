@@ -1,3 +1,4 @@
+![Chatify App Screenshot](frontend/public/screenshot-for-readme.png)
 
 Highlights:
 - 🔐 Custom JWT Authentication (no 3rd-party auth)
