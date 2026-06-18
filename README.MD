@@ -1,4 +1,4 @@
-# 💬 Chatify
+# 💬FlowChat
 
 <p align="center">
   <strong>Real-Time Full Stack Chat Application with Authentication, Presence Tracking, Media Sharing & Live Messaging</strong>
