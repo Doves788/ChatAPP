@@ -325,5 +325,4 @@ This project is licensed under the MIT License.
 ---
 
 <p align="center">
-⭐ If you found this project useful, consider giving it a star!
 </p>
