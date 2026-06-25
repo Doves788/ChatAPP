@@ -23,7 +23,7 @@
 
 ## 🎯 Overview
 
-Chatify is a modern full-stack real-time chat application that enables users to communicate instantly through private messaging, media sharing, and live presence updates.
+FlowChat is a modern full-stack real-time chat application that enables users to communicate instantly through private messaging, media sharing, and live presence updates.
 
 The application combines secure JWT authentication, WebSocket communication, cloud media storage, email notifications, and responsive UI design to deliver a seamless messaging experience.
 
